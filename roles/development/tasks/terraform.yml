@@ -1,0 +1,26 @@
+- name: Install Base Packages
+  become: yes
+  ansible.builtin.package:
+    name:
+      - gnupg
+      - software-properties-common
+
+- name: install key (apt)
+  become: yes
+  apt_key:
+    url: '{{ terraform_mirror }}/gpg'
+    state: present
+
+- name: install Terraform repo (apt)
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] {{ terraform_mirror }} {{ ansible_distribution_release | lower }} main'
+    filename: vscode
+    state: present
+
+- name: install Terraform (apt)
+  become: yes
+  apt:
+    name: 
+      - terraform
+    state: present
