@@ -1,0 +1,9 @@
+- name: Install Base Packages
+  become: yes
+  ansible.builtin.package:
+    name:
+      - wget
+      - net-tools
+      - vim
+      - git
+      - curl

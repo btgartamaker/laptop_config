@@ -1,0 +1,45 @@
+- name: Install Base Packages
+  become: yes
+  ansible.builtin.package:
+    name:
+      - apt-transport-https 
+      - ca-certificates
+      - curl
+      - gnupg-agent
+      - software-properties-common
+
+- name: install key (apt)
+  become: yes
+  apt_key:
+    url: '{{ docker_mirror }}/gpg'
+    state: present
+
+- name: install Docker repo (apt)
+  become: yes
+  apt_repository:
+    repo: 'deb [arch=amd64] {{ docker_mirror }} {{ ansible_distribution_release | lower }} stable'
+    filename: vscode
+    state: present
+
+- name: install Docker (apt)
+  become: yes
+  apt:
+    name: 
+      - docker-ce 
+      - docker-ce-cli
+      - containerd.io
+    state: present
+
+- name: Get Username.
+  command: whoami
+  changed_when: false
+  become: false
+  register: whoami
+
+- name: adding existing user '{{ whoami.stdout }}' to group sudo
+  become: yes
+  user:
+    name: '{{ whoami.stdout }}'
+    groups:
+      - docker
+    append: yes
