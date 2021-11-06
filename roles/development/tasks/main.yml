@@ -13,3 +13,5 @@
 - import_tasks: java_jdk.yml
 
 - import_tasks: postman.yml
+
+- import_tasks: go.yml

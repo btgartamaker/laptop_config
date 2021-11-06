@@ -1,0 +1,14 @@
+- name: Download go
+  get_url:
+    url: '{{ go_mirror }}{{ go_package }}'
+    dest: /tmp/{{ go_package }}
+
+- name: Install go
+  command: tar -C /usr/local -xzf /tmp/{{ go_package }}
+  become: yes
+
+- name: Set Path for GO
+  copy:
+    dest: /etc/profile.d/go_path.sh
+    content: PATH=$PATH:/usr/local/go/bin
+  become: yes
