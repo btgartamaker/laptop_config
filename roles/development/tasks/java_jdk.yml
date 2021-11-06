@@ -1,0 +1,19 @@
+- name: install key (apt)
+  become: yes
+  apt_key:
+    url: '{{ jdk_mirror }}/corretto.key'
+    state: present
+
+- name: install Terraform repo (apt)
+  become: yes
+  apt_repository:
+    repo: 'deb {{ jdk_mirror }} stable main'
+    filename: aws_jdk
+    state: present
+
+- name: install Terraform (apt)
+  become: yes
+  apt:
+    name: 
+      - java-11-amazon-corretto-jdk
+    state: present

@@ -18,7 +18,7 @@
   become: yes
   apt_repository:
     repo: 'deb [arch=amd64] {{ docker_mirror }} {{ ansible_distribution_release | lower }} stable'
-    filename: vscode
+    filename: docker
     state: present
 
 - name: install Docker (apt)
