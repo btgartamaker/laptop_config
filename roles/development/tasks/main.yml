@@ -2,6 +2,8 @@
 
 - import_tasks: base_packages.yml
 
+- import_tasks: chrome.yml
+
 - import_tasks: vscode.yml
 
 - import_tasks: terraform.yml
